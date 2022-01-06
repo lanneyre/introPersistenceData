@@ -39,6 +39,12 @@ if(empty($_POST['com'])){
     $errors["com"] = "Merci de critiquer en lachant un commentaire";
 }
 if(!empty($errors)){
-    echo implode("<br>", $errors);
+    //echo implode("<br>", $errors);
+    $log = "[".date("Y-m-d H:i:s")."] - Validation de formulaire échoué : [ ".implode(" - ", $errors)."]\n";
+    error_log($log, 3, "../data/log.txt");
+    header("Location: ../formulaire.php?result=ok");
     exit;
+} else {
+    $log = "[".date("Y-m-d H:i:s")."] - Validation de formulaire réussi\n";
+    error_log($log, 3, "../data/log.txt");
 }
